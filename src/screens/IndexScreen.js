@@ -5,11 +5,10 @@ import { FontAwesome } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const IndexScreen = ({navigation}) => {
-  const { state, addBlogPost, deleteBlogPost } = useContext(BlogContext);
+  const { state, deleteBlogPost } = useContext(BlogContext);
 
   return (
     <View style={styles.container}>
-      <Button title='Add Post' onPress={addBlogPost} />
       <FlatList
         data={state}
         keyExtractor={(blogPost) => String(blogPost.id)}
@@ -29,6 +28,15 @@ const IndexScreen = ({navigation}) => {
     </View>
   )
 }
+
+IndexScreen.navigationOptions = ({ navigation }) => {
+  return{
+    headerRight:
+    <TouchableOpacity onPress={() => navigation.navigate('Create')}>
+        <FontAwesome name="plus" size={20} style={{marginRight:10}}/>
+    </TouchableOpacity>
+  }
+};
 
 const styles = StyleSheet.create({
   container: {
